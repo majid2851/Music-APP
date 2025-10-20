@@ -5,9 +5,13 @@ import androidx.compose.ui.unit.dp
 
 object Dimens {
 
+    val musicCategoryItemWidth=80.dp
+    val musicImgSize=50.dp
+    val mainCategoryImgHeight=190.dp
+    val mainCategoryImgWidth=200.dp
     val buttonWidthNormal=200.dp
     val buttonHeightNormal=50.dp
-
+    val searchHeight=40.dp
 
 
 
@@ -68,7 +72,8 @@ object Dimens {
     val listItemHeightSmall: Dp = 48.dp
     val listItemHeightLarge: Dp = 72.dp
 
-    val dividerThickness: Dp = 1.dp
+    val dividerSmallThickness: Dp = 1.dp
+    val dividerNormalThickness: Dp = 2.dp
 
     val minTouchTarget: Dp = 48.dp
 
