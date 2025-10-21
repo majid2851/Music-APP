@@ -11,6 +11,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MoreHoriz
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,7 +24,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import com.musicapk.R
-import com.musicapk.ui.general_component.gradientScreenBackground
+import com.musicapk.ui.general_component.CustomIcon
+import com.musicapk.ui.theme.styles.gradientScreenBackground
 import com.musicapk.ui.theme.AppColors
 import com.musicapk.ui.theme.Dimens
 import com.musicapk.ui.theme.FontSizes
@@ -45,13 +50,12 @@ fun SearchSongAndArtistAndPlayList()
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        Image(
-            painter = painterResource(id = R.drawable.search),
-            contentDescription = "",
-            colorFilter = ColorFilter.tint(AppColors.White),
-            modifier = Modifier
-                .size(Dimens.iconSizeSmall),
+        CustomIcon(
+            icon = Icons.Default.Search,
+            tint = AppColors.LightGray
         )
+
+
 
         Spacer(modifier = Modifier.width(Dimens.spacingSmall))
 

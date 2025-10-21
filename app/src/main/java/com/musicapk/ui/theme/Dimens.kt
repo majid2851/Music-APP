@@ -5,6 +5,8 @@ import androidx.compose.ui.unit.dp
 
 object Dimens {
 
+    val songPlayerImageHeight=300.dp
+    val musicOverviewHeight=250.dp
     val musicCategoryItemWidth=80.dp
     val musicImgSize=50.dp
     val mainCategoryImgHeight=190.dp
@@ -15,67 +17,69 @@ object Dimens {
 
 
 
-    val paddingExtraSmall: Dp = 4.dp
+    val paddingExtraSmall = 4.dp
 
-    val paddingSmall: Dp = 8.dp
+    val paddingSmall = 8.dp
 
-    val paddingMedium: Dp = 16.dp
+    val paddingNormal = 12.dp
 
-    val paddingLarge: Dp = 24.dp
+    val paddingMedium = 16.dp
 
-    val paddingExtraLarge: Dp = 32.dp
+    val paddingLarge = 24.dp
 
-    val paddingXXL: Dp = 48.dp
+    val paddingExtraLarge = 32.dp
 
-    val paddingXXXL: Dp = 64.dp
+    val paddingXXL = 48.dp
 
-    val screenPadding: Dp = 16.dp
-    val screenPaddingLarge: Dp = 24.dp
+    val paddingXXXL = 64.dp
 
-    val spacingTiny: Dp = 2.dp
-    val spacingExtraSmall: Dp = 4.dp
-    val spacingSmall: Dp = 8.dp
-    val spacingMedium: Dp = 12.dp
-    val spacingDefault: Dp = 16.dp
-    val spacingLarge: Dp = 20.dp
-    val spacingExtraLarge: Dp = 24.dp
-    val spacingXXL: Dp = 32.dp
+    val screenPadding = 16.dp
+    val screenPaddingLarge = 24.dp
 
-    val cardPadding: Dp = 16.dp
-    val cardPaddingSmall: Dp = 12.dp
-    val cardPaddingLarge: Dp = 20.dp
+    val spacingTiny = 2.dp
+    val spacingExtraSmall = 4.dp
+    val spacingSmall = 8.dp
+    val spacingMedium = 12.dp
+    val spacingDefault = 16.dp
+    val spacingLarge = 20.dp
+    val spacingExtraLarge = 24.dp
+    val spacingXXL = 32.dp
 
-    val buttonPaddingHorizontal: Dp = 24.dp
-    val buttonPaddingVertical: Dp = 12.dp
+    val cardPadding = 16.dp
+    val cardPaddingSmall = 12.dp
+    val cardPaddingLarge = 20.dp
 
-    val iconSizeSmall: Dp = 16.dp
-    val iconSizeDefault: Dp = 24.dp
-    val iconSizeMedium: Dp = 32.dp
-    val iconSizeLarge: Dp = 48.dp
-    val iconSizeExtraLarge: Dp = 64.dp
-    val iconSizeXXL: Dp = 96.dp
-    val iconSizeXXXL: Dp = 120.dp
+    val buttonPaddingHorizontal = 24.dp
+    val buttonPaddingVertical = 12.dp
 
-    val elevationSmall: Dp = 2.dp
-    val elevationDefault: Dp = 4.dp
-    val elevationMedium: Dp = 6.dp
-    val elevationLarge: Dp = 8.dp
+    val iconSizeSmall = 16.dp
+    val iconSizeDefault = 24.dp
+    val iconSizeMedium = 32.dp
+    val iconSizeLarge = 48.dp
+    val iconSizeExtraLarge = 64.dp
+    val iconSizeXXL = 96.dp
+    val iconSizeXXXL = 120.dp
 
-    val cornerRadiusSmall: Dp = 4.dp
-    val cornerRadiusDefault: Dp = 8.dp
-    val cornerRadiusMedium: Dp = 12.dp
-    val cornerRadiusLarge: Dp = 16.dp
-    val cornerRadiusExtraLarge: Dp = 24.dp
-    val cornerRadiusFull: Dp = 999.dp
+    val elevationSmall = 2.dp
+    val elevationDefault = 4.dp
+    val elevationMedium = 6.dp
+    val elevationLarge = 8.dp
 
-    val listItemHeight: Dp = 56.dp
-    val listItemHeightSmall: Dp = 48.dp
-    val listItemHeightLarge: Dp = 72.dp
+    val cornerRadiusSmall = 4.dp
+    val cornerRadiusDefault = 8.dp
+    val cornerRadiusMedium = 12.dp
+    val cornerRadiusLarge = 16.dp
+    val cornerRadiusExtraLarge = 24.dp
+    val cornerRadiusFull = 999.dp
 
-    val dividerSmallThickness: Dp = 1.dp
-    val dividerNormalThickness: Dp = 2.dp
+    val listItemHeight = 56.dp
+    val listItemHeightSmall = 48.dp
+    val listItemHeightLarge = 72.dp
 
-    val minTouchTarget: Dp = 48.dp
+    val dividerSmallThickness = 1.dp
+    val dividerNormalThickness = 2.dp
+
+    val minTouchTarget = 48.dp
 
 
 }

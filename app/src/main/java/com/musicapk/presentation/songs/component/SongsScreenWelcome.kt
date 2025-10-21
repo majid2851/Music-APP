@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import com.musicapk.ui.general_component.gradientScreenBackground
+import com.musicapk.ui.theme.styles.gradientScreenBackground
 import com.musicapk.ui.theme.AppColors
 import com.musicapk.ui.theme.Dimens
 import com.musicapk.ui.theme.FontSizes

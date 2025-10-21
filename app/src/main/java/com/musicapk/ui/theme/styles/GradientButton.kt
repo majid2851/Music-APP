@@ -1,4 +1,4 @@
-package com.musicapk.ui.general_component
+package com.musicapk.ui.theme.styles
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
