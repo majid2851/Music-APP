@@ -1,5 +1,6 @@
 package com.musicapk.ui.general_component
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,19 +18,25 @@ import com.musicapk.ui.theme.styles.gradientButtonBackground
 
 @Composable
 fun CircleGradientIcon(
-    icon:ImageVector,
-)
-{
+    icon: ImageVector,
+    onClick: (() -> Unit)? = null
+) {
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(Dimens.cornerRadiusFull))
             .gradientButtonBackground()
-            .size(Dimens.iconSizeLarge),
-    )
-    {
+            .size(Dimens.iconSizeLarge)
+            .then(
+                if (onClick != null) {
+                    Modifier.clickable { onClick() }
+                } else {
+                    Modifier
+                }
+            )
+    ) {
         Icon(
-            imageVector = icon ,
-            contentDescription ="",
+            imageVector = icon,
+            contentDescription = "",
             modifier = Modifier
                 .align(Alignment.Center)
                 .size(Dimens.iconSizeDefault),

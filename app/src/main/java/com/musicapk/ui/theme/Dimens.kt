@@ -5,15 +5,16 @@ import androidx.compose.ui.unit.dp
 
 object Dimens {
 
+    val playListItemHeight=60.dp
     val songPlayerImageHeight=300.dp
     val musicOverviewHeight=250.dp
     val musicCategoryItemWidth=80.dp
-    val musicImgSize=50.dp
+    val musicImgSize=60.dp
     val mainCategoryImgHeight=190.dp
     val mainCategoryImgWidth=200.dp
     val buttonWidthNormal=200.dp
     val buttonHeightNormal=50.dp
-    val searchHeight=40.dp
+    val searchHeight=45.dp
 
 
 
@@ -59,6 +60,10 @@ object Dimens {
     val iconSizeExtraLarge = 64.dp
     val iconSizeXXL = 96.dp
     val iconSizeXXXL = 120.dp
+    
+    // Album/Artist item sizes
+    val albumArtworkSize = 60.dp
+    val artistImageSize = 60.dp
 
     val elevationSmall = 2.dp
     val elevationDefault = 4.dp

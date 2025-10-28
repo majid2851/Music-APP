@@ -28,6 +28,7 @@ import com.musicapk.ui.theme.Strings
 @Composable
 fun SplashContent(
     uiState: SplashUiState,
+    onGetStartedClick:()->Unit,
 ) {
     Box(
         modifier= Modifier
@@ -84,7 +85,7 @@ fun SplashContent(
                 width =Dimens.buttonWidthNormal ,
                 height =Dimens.buttonHeightNormal ,
                 onClick = {
-
+                    onGetStartedClick()
                 },
             )
 
@@ -102,8 +103,9 @@ fun SplashContentPreview() {
             uiState = SplashUiState(
                 isLoading = false,
                 isInitialized = true,
-                error = null
-            )
+                error = null,
+            ),
+            onGetStartedClick={},
         )
     }
 }

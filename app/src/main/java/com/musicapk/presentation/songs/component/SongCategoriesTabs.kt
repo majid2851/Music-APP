@@ -1,5 +1,6 @@
 package com.musicapk.presentation.songs.component
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -26,8 +27,10 @@ import com.musicapk.ui.theme.FontSizes
 import com.musicapk.ui.theme.MusicApkTheme
 
 @Composable
-fun SongCategoriesTabs()
-{
+fun SongCategoriesTabs(
+    selectedCategory: SongCategoryEnum = SongCategoryEnum.ALL_MUSIC,
+    onCategorySelected: (SongCategoryEnum) -> Unit = {}
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -38,34 +41,40 @@ fun SongCategoriesTabs()
             .horizontalScroll(rememberScrollState()),
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
-        SongCategoryEnum.entries.forEach {
-            SongCategoryItem(title = it.title)
+        SongCategoryEnum.entries.forEach { category ->
+            SongCategoryItem(
+                title = category.title,
+                isSelected = category == selectedCategory,
+                onClick = { onCategorySelected(category) }
+            )
         }
     }
 }
 
 @Composable
 private fun SongCategoryItem(
-    title:String,
+    title: String,
+    isSelected: Boolean = false,
+    onClick: () -> Unit = {}
 ) {
     Column(
-        modifier=Modifier
+        modifier = Modifier
             .width(Dimens.musicCategoryItemWidth)
+            .clickable { onClick() }
             .padding(
                 end = Dimens.paddingSmall,
                 start = Dimens.paddingSmall,
             ),
         horizontalAlignment = Alignment.CenterHorizontally,
-    )
-    {
+    ) {
         Text(
             text = title,
             modifier = Modifier.padding(
                 bottom = Dimens.paddingSmall
             ),
             fontSize = FontSizes.medium,
-            fontWeight = FontWeight.SemiBold,
-            color = AppColors.White,
+            fontWeight = if (isSelected) FontWeight.Bold else FontWeight.SemiBold,
+            color = if (isSelected) AppColors.White else AppColors.LightGray,
             fontFamily = FontFamily.SansSerif,
         )
 
@@ -73,9 +82,14 @@ private fun SongCategoryItem(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(Dimens.dividerNormalThickness)
-                .gradientButtonBackground()
+                .then(
+                    if (isSelected) {
+                        Modifier.gradientButtonBackground()
+                    } else {
+                        Modifier
+                    }
+                )
         )
-
     }
 }
 
@@ -93,7 +107,10 @@ private fun MusicCategoriesTabsPreview() {
                 .gradientScreenBackground()
                 .padding(Dimens.paddingMedium)
         ) {
-            SongCategoriesTabs()
+            SongCategoriesTabs(
+                selectedCategory = SongCategoryEnum.ALL_MUSIC,
+                onCategorySelected = {}
+            )
         }
     }
 }

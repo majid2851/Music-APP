@@ -9,8 +9,10 @@ import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -25,19 +27,40 @@ import com.musicapk.ui.theme.styles.gradientScreenBackground
 
 @Composable
 fun SongProgressBar(
+    currentPosition: Long,
+    duration: Long,
+    onSeek: (Long) -> Unit,
+    onFinishSong: () -> Unit,
     modifier: Modifier = Modifier
-)
-{
-    var sliderPosition by remember { mutableFloatStateOf(84f) }
+) {
+    val currentSeconds = (currentPosition / 1000).toFloat()
+    val durationSeconds = (duration / 1000).toFloat()
 
-    Column(
-        modifier = modifier.fillMaxWidth()
-    )
-    {
+    var sliderPosition by remember { mutableStateOf(currentSeconds) }
+    var isUserInteracting by remember { mutableStateOf(false) }
+
+    if (!isUserInteracting) {
+        sliderPosition = currentSeconds
+    }
+
+    LaunchedEffect(currentPosition) {
+         if (duration > 0 && currentPosition >= duration - 1000) {
+            onFinishSong()
+        }
+    }
+
+    Column(modifier = modifier.fillMaxWidth()) {
         Slider(
-            value = sliderPosition,
-            onValueChange = { sliderPosition = it },
-            valueRange = 0f..238f,
+            value = if (durationSeconds > 0) sliderPosition else 0f,
+            onValueChange = {
+                isUserInteracting = true
+                sliderPosition = it
+            },
+            onValueChangeFinished = {
+                isUserInteracting = false
+                onSeek((sliderPosition * 1000).toLong())
+            },
+            valueRange = 0f..(durationSeconds.takeIf { it > 0 } ?: 1f),
             modifier = Modifier.fillMaxWidth(),
             colors = SliderDefaults.colors(
                 thumbColor = AppColors.White,
@@ -53,18 +76,17 @@ fun SongProgressBar(
                     end = Dimens.paddingSmall,
                     start = Dimens.paddingSmall,
                 ),
-            horizontalArrangement = Arrangement.SpaceBetween,
-        )
-        {
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
             Text(
-                text = formatTime(sliderPosition.toInt()),
+                text = formatTime(currentSeconds.toInt()),
                 fontFamily = FontFamily.SansSerif,
                 fontSize = FontSizes.medium,
                 color = AppColors.White
             )
 
             Text(
-                text = formatTime(238),
+                text = formatTime(durationSeconds.toInt()),
                 fontFamily = FontFamily.SansSerif,
                 fontSize = FontSizes.medium,
                 color = AppColors.White
@@ -83,6 +105,10 @@ private fun formatTime(seconds: Int): String {
 @Composable
 private fun SongProgressBarPreview() {
     SongProgressBar(
+        currentPosition = 84000L, // 1:24
+        duration = 238000L, // 3:58
+        onSeek = {},
+        onFinishSong = {},
         modifier = Modifier
             .gradientScreenBackground()
             .padding(

@@ -1,17 +1,19 @@
-package com.musicapk.presentation.music_overview
+package com.musicapk.presentation.play_list
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.musicapk.presentation.music_overview.component.SelectedMusicOverview
+import com.musicapk.presentation.play_list.component.SelectedPlayList
 import com.musicapk.ui.general_component.SongsList
 import com.musicapk.ui.theme.styles.gradientScreenBackground
 import com.musicapk.ui.theme.styles.screenPaddings
 
 @Composable
-fun MusicOverview()
+fun MusicPlayList(
+    onSongClick:()->Unit,
+)
 {
     Column(
         modifier = Modifier
@@ -19,11 +21,14 @@ fun MusicOverview()
             .fillMaxSize()
     ){
 
-        SelectedMusicOverview()
+        SelectedPlayList()
 
         SongsList(
             modifier=Modifier
-                .screenPaddings()
+                .screenPaddings(),
+            onSongClick = {
+                onSongClick()
+            }
         )
 
     }
@@ -35,5 +40,7 @@ fun MusicOverview()
 )
 @Composable
 private fun MusicOverviewPreview() {
-    MusicOverview()
+    MusicPlayList(
+        onSongClick = {}
+    )
 }

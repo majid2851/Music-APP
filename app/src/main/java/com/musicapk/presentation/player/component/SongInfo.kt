@@ -22,44 +22,48 @@ import com.musicapk.ui.theme.styles.gradientScreenBackground
 
 @Composable
 fun SongInfo(
-    modifier: Modifier=Modifier
-)
-{
+    title: String,
+    artist: String,
+    isFavorite: Boolean,
+    onFavoriteClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Row(
         modifier = modifier.fillMaxWidth()
-    )
-    {
-        Column()
-        {
+    ) {
+        Column {
             Text(
-                text = "You Right",
+                text = title,
                 fontFamily = FontFamily.SansSerif,
                 fontSize = FontSizes.large,
                 color = AppColors.White,
             )
 
             Text(
-                text = "Doja Cat, The Weeknd",
+                text = artist,
                 fontFamily = FontFamily.SansSerif,
                 fontSize = FontSizes.medium,
                 color = AppColors.DarkGray,
             )
-
         }
 
         Spacer(modifier = Modifier.weight(1f))
 
-        CustomIcon(icon = Icons.Default.FavoriteBorder)
-
-
+        CustomIcon(
+            icon = if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+            onClick = onFavoriteClick
+        )
     }
-
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun SongInfoPreview() {
     SongInfo(
-        modifier=Modifier.gradientScreenBackground()
+        title = "You Right",
+        artist = "Doja Cat, The Weeknd",
+        isFavorite = true,
+        onFavoriteClick = {},
+        modifier = Modifier.gradientScreenBackground()
     )
 }
