@@ -82,4 +82,9 @@ object Strings
     val songAddedToPlaylist = "Song added to playlist"
     val selectPlaylist = "Select Playlist"
     val noPlaylistsAvailable = "No playlists available. Create one first!"
+    
+    // Exit Dialog
+    val exitApp = "Exit App"
+    val exitAppMessage = "Are you sure you want to exit?"
+    val exit = "Exit"
 }

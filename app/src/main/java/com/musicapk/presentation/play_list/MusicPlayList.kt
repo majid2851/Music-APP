@@ -9,28 +9,36 @@ import com.musicapk.presentation.play_list.component.SelectedPlayList
 import com.musicapk.ui.general_component.SongsList
 import com.musicapk.ui.theme.styles.gradientScreenBackground
 import com.musicapk.ui.theme.styles.screenPaddings
+import com.musicapk.presentation.songs.SongsViewModel
+import androidx.compose.runtime.collectAsState
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.musicapk.domain.model.Song
 
 @Composable
 fun MusicPlayList(
-    onSongClick:()->Unit,
-)
-{
+    onSongClick: (Song) -> Unit,
+    playListId: String,
+    viewModel: SongsViewModel = hiltViewModel()
+) {
+    val playlistSongs = viewModel.getPlaylistSongs(playListId)
+        .collectAsState(initial = emptyList())
+
     Column(
         modifier = Modifier
             .gradientScreenBackground()
             .fillMaxSize()
-    ){
-
-        SelectedPlayList()
+    ) {
+        SelectedPlayList(playlistId = playListId)
 
         SongsList(
-            modifier=Modifier
+            songs = playlistSongs.value,
+            modifier = Modifier
                 .screenPaddings(),
-            onSongClick = {
-                onSongClick()
+            onSongClick = { song ->
+                viewModel.playSongFromPlaylist(song, playlistSongs.value)
+                onSongClick(song)
             }
         )
-
     }
 }
 
@@ -41,6 +49,7 @@ fun MusicPlayList(
 @Composable
 private fun MusicOverviewPreview() {
     MusicPlayList(
-        onSongClick = {}
+        onSongClick = {}, // Sample onClick for preview purposes
+        playListId = "sample_playlist_id"  // Sample playlist ID for preview
     )
 }
