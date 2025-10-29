@@ -9,9 +9,9 @@ import com.musicapk.ui.theme.AppColors
 fun Modifier.gradientButtonBackground(): Modifier = this.background(
     brush = Brush.horizontalGradient(
         colors = listOf(
-            AppColors.GradientPurple1,
-            AppColors.GradientPink,
-            AppColors.GradientPurple2
+            AppColors.GradientBlue1,
+            AppColors.GradientBlue2,
+            AppColors.GradientBlue3
         )
     )
 )
@@ -20,7 +20,7 @@ fun Modifier.gradientScreenBackground(): Modifier = this.background(
     brush = Brush.linearGradient(
         colors = listOf(
             AppColors.BackgroundTop,
-            AppColors.GradientPurple1,
+            AppColors.GradientBlue1,
             AppColors.BackgroundBottom,
         ),
 

@@ -56,8 +56,7 @@ fun BackAndMoreIcons(
                 expanded = showMenu,
                 onDismissRequest = { showMenu = false },
                 modifier = Modifier
-//                    .clip(RoundedCornerShape(Dimens.cornerRadiusMedium))
-                    .background(AppColors.BackgroundTop)
+                     .background(AppColors.GradientBlue1)
             ) {
                 DropdownMenuItem(
                     text = {

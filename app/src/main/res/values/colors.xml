@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Launcher icon background -->
+    <color name="ic_launcher_background">#6200EE</color>
+    
+    <!-- Material 3 colors -->
+    <color name="purple_80">#FFD0BCFF</color>
+    <color name="purple_grey_80">#FFCCC2DC</color>
+    <color name="pink_80">#FFEFB8C8</color>
+    
+    <color name="purple_40">#FF6650a4</color>
+    <color name="purple_grey_40">#FF625b71</color>
+    <color name="pink_40">#FF7D5260</color>
+</resources>
+
+
+

@@ -25,6 +25,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
 import com.musicapk.domain.model.Song
@@ -44,7 +45,10 @@ fun SongsList(
             .padding(top = Dimens.paddingMedium)
     )
     {
-        items(songs) { song ->
+        items(
+            items = songs,
+            key = { song -> song.id } 
+        ) { song ->
             SongItem(
                 song = song,
                 onSongClick = {
@@ -63,19 +67,17 @@ fun SongItem(
 ) {
     Row(
         modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onSongClick() }
             .padding(bottom = Dimens.paddingSmall)
-            .height(Dimens.musicImgSize)
-            .clickable {
-                onSongClick()
-            }
-            .fillMaxWidth(),
+            .height(Dimens.musicImgSize),
         verticalAlignment = Alignment.CenterVertically
     )
     {
+        // Album artwork or placeholder icon
         Box(
             modifier = Modifier
-                .width(Dimens.musicImgSize)
-                .height(Dimens.musicImgSize)
+                .size(Dimens.musicImgSize)
                 .clip(RoundedCornerShape(Dimens.cornerRadiusMedium))
                 .background(AppColors.DarkGray.copy(alpha = 0.3f)),
             contentAlignment = Alignment.Center
@@ -84,9 +86,7 @@ fun SongItem(
                 AsyncImage(
                     model = song.artworkUri,
                     contentDescription = song.title,
-                    modifier = Modifier
-                        .width(Dimens.musicImgSize)
-                        .height(Dimens.musicImgSize),
+                    modifier = Modifier.size(Dimens.musicImgSize),
                     contentScale = ContentScale.Crop
                 )
             } else {
@@ -99,9 +99,11 @@ fun SongItem(
             }
         }
 
+        // Song title and artist
         Column(
             modifier = Modifier
-                .padding(start = Dimens.paddingMedium)
+                .weight(1f)
+                .padding(start = Dimens.paddingMedium, end = Dimens.paddingSmall)
         ) {
             Text(
                 text = song.title,
@@ -109,6 +111,8 @@ fun SongItem(
                 fontWeight = FontWeight.SemiBold,
                 fontFamily = FontFamily.SansSerif,
                 color = AppColors.White,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
 
             Text(
@@ -117,11 +121,12 @@ fun SongItem(
                 fontWeight = FontWeight.Medium,
                 fontFamily = FontFamily.SansSerif,
                 color = AppColors.DarkGray,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
         }
 
-        Spacer(modifier = Modifier.weight(1f))
-
+        // Duration
         Text(
             text = formatDuration(song.duration),
             fontSize = FontSizes.medium,

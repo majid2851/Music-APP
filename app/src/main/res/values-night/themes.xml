@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark theme for Jetpack Compose -->
+    <style name="Theme.MusicApk" parent="android:Theme.Material.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="android:statusBarColor">@color/purple_80</item>
+    </style>
+</resources>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

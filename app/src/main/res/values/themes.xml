@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme for Jetpack Compose -->
+    <!-- Using AppCompat as parent since Material 3 theming is handled in Compose -->
+    <style name="Theme.MusicApk" parent="android:Theme.Material.Light.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="android:statusBarColor">@color/purple_40</item>
+    </style>
+</resources>
+
