@@ -84,6 +84,8 @@ object Dimens {
     val dividerSmallThickness = 1.dp
     val dividerNormalThickness = 2.dp
 
+    val strokeWidthMedium = 3.dp
+
     val minTouchTarget = 48.dp
 
 

@@ -72,7 +72,7 @@ fun AddToPlaylistDialog(
                 )
             }
         },
-        containerColor = AppColors.DarkBackground,
+        containerColor = AppColors.GradientBlue1,
         titleContentColor = AppColors.White,
         textContentColor = AppColors.White,
         shape = RoundedCornerShape(Dimens.cornerRadiusMedium)

@@ -5,6 +5,7 @@ import com.musicapk.data.local.dao.SongDao
 import com.musicapk.data.local.datasource.MusicDataSource
 import com.musicapk.data.local.entity.PlaylistEntity
 import com.musicapk.data.local.entity.PlaylistSongCrossRef
+import com.musicapk.data.local.entity.PlaylistWithSongs
 import com.musicapk.data.mapper.toDomain
 import com.musicapk.data.mapper.toDomainPlaylists
 import com.musicapk.domain.model.Album
@@ -228,18 +229,15 @@ class MusicRepositoryImpl @Inject constructor(
         }
     }
     
-    override fun getSongsByPlaylistId(playlistId: String): Flow<Result<List<Song>>> = flow {
-        try {
-            val playlistWithSongs = playlistDao.getPlaylistWithSongs(playlistId)
-            if (playlistWithSongs != null) {
-                val songs = playlistWithSongs.songs.toDomain()
-                emit(Result.Success(songs))
-            } else {
-                emit(Result.Success(emptyList()))
+    override fun getSongsByPlaylistId(playlistId: String): Flow<Result<List<Song>>> =
+        playlistDao.getPlaylistWithSongsFlow(playlistId)
+            .map<PlaylistWithSongs?, Result<List<Song>>> { playlistWithSongs ->
+                if (playlistWithSongs != null) {
+                    Result.Success(playlistWithSongs.songs.toDomain())
+                } else {
+                    Result.Success(emptyList())
+                }
             }
-        } catch (e: Exception) {
-            emit(Result.Error(e))
-        }
-    }
+            .catch { emit(Result.Error(it)) }
 }
 

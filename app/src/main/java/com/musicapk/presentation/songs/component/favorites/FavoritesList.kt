@@ -17,6 +17,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.musicapk.domain.model.Song
 import com.musicapk.ui.general_component.SongItem
+import com.musicapk.ui.general_component.SongsList
 import com.musicapk.ui.theme.AppColors
 import com.musicapk.ui.theme.Dimens
 import com.musicapk.ui.theme.FontSizes
@@ -28,22 +29,18 @@ import com.musicapk.ui.theme.styles.gradientScreenBackground
 fun FavoritesList(
     favoriteSongs: List<Song>,
     onSongClick: (Song) -> Unit,
+    onRemoveFromFavorites: (Song) -> Unit,
     modifier: Modifier = Modifier
 ) {
     if (favoriteSongs.isEmpty()) {
         EmptyFavoritesState(modifier = modifier)
     } else {
-        LazyColumn(
-            modifier = modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(Dimens.paddingSmall)
-        ) {
-            items(favoriteSongs) { song ->
-                SongItem(
-                    song = song,
-                    onSongClick = { onSongClick(song) }
-                )
-            }
-        }
+        SongsList(
+            modifier = modifier,
+            songs = favoriteSongs,
+            onSongClick = onSongClick,
+            onRemoveSong = onRemoveFromFavorites
+        )
     }
 }
 
@@ -91,7 +88,8 @@ private fun FavoritesListEmptyPreview() {
         ) {
             FavoritesList(
                 favoriteSongs = emptyList(),
-                onSongClick = {}
+                onSongClick = {},
+                onRemoveFromFavorites = {}
             )
         }
     }
@@ -144,7 +142,8 @@ private fun FavoritesListPreview() {
         ) {
             FavoritesList(
                 favoriteSongs = sampleFavoriteSongs,
-                onSongClick = {}
+                onSongClick = {},
+                onRemoveFromFavorites = {}
             )
         }
     }

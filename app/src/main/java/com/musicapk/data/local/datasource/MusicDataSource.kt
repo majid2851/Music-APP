@@ -67,7 +67,21 @@ class MusicDataSource @Inject constructor(
                     id.toString()
                 )
                 
-                val artworkUri = Uri.parse("content://media/external/audio/albumart/$albumId")
+                // Get artwork URI - use album art only if albumId is valid
+                val artworkUri = if (albumId > 0) {
+                    // Try to get album artwork
+                    val albumArtUri = Uri.parse("content://media/external/audio/albumart/$albumId")
+                    // Verify if the artwork actually exists
+                    try {
+                        contentResolver.openInputStream(albumArtUri)?.close()
+                        albumArtUri.toString()
+                    } catch (e: Exception) {
+                        // Album art doesn't exist or can't be accessed, use null
+                        null
+                    }
+                } else {
+                    null
+                }
                 
                 songs.add(
                     SongEntity(
@@ -76,7 +90,7 @@ class MusicDataSource @Inject constructor(
                         artist = artist,
                         album = album,
                         duration = duration,
-                        artworkUri = artworkUri.toString(),
+                        artworkUri = artworkUri,
                         audioUri = audioUri.toString(),
                         dateAdded = dateAdded,
                         isFavorite = false
@@ -88,6 +102,7 @@ class MusicDataSource @Inject constructor(
         songs
     }
 }
+
 
 
 

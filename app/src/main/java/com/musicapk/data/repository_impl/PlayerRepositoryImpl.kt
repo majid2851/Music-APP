@@ -1,7 +1,9 @@
 package com.musicapk.data.repository_impl
 
 import android.content.Context
+import android.net.Uri
 import androidx.media3.common.MediaItem
+import androidx.media3.common.MediaMetadata
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
 import com.musicapk.domain.model.PlayerState
@@ -23,18 +25,27 @@ import javax.inject.Singleton
 
 @Singleton
 class PlayerRepositoryImpl @Inject constructor(
-    @ApplicationContext private val context: Context
+    @ApplicationContext private val context: Context,
+    private val exoPlayer: ExoPlayer
 ) : PlayerRepository {
     
-    private val exoPlayer: ExoPlayer = ExoPlayer.Builder(context).build()
     private val coroutineScope = CoroutineScope(Dispatchers.Main + Job())
     private var positionUpdateJob: Job? = null
     
     private val _playerState = MutableStateFlow(PlayerState())
     
     init {
+        configurePlayer()
         setupPlayerListener()
         startPositionUpdater()
+    }
+    
+    /**
+     * Configure player with all available commands
+     */
+    private fun configurePlayer() {
+        exoPlayer.setMediaItems(emptyList())
+        exoPlayer.prepare()
     }
     
     private fun setupPlayerListener() {
@@ -80,6 +91,20 @@ class PlayerRepositoryImpl @Inject constructor(
             }
         }
     }
+
+    private fun createMediaItem(song: Song): MediaItem {
+        val metadata = MediaMetadata.Builder()
+            .setTitle(song.title)
+            .setArtist(song.artist)
+            .setAlbumTitle(song.album)
+            .setArtworkUri(song.artworkUri?.let { Uri.parse(it) })
+            .build()
+        
+        return MediaItem.Builder()
+            .setUri(Uri.parse(song.audioUri))
+            .setMediaMetadata(metadata)
+            .build()
+    }
     
     override fun observePlayerState(): Flow<PlayerState> {
         return _playerState.asStateFlow()
@@ -96,8 +121,8 @@ class PlayerRepositoryImpl @Inject constructor(
             return
         }
         
-        // Different song - load and play it
-        val mediaItem = MediaItem.fromUri(song.audioUri)
+        // Different song - load and play it with metadata
+        val mediaItem = createMediaItem(song)
         exoPlayer.setMediaItem(mediaItem)
         exoPlayer.prepare()
         exoPlayer.play()
@@ -125,10 +150,10 @@ class PlayerRepositoryImpl @Inject constructor(
             return
         }
         
-        // Different song - load and play playlist
-        // Create media items for all songs
+        // Different song - load and play playlist with metadata
+        // Create media items for all songs with metadata
         val mediaItems = songs.map { song ->
-            MediaItem.fromUri(song.audioUri)
+            createMediaItem(song)
         }
         
         exoPlayer.setMediaItems(mediaItems, startIndex, 0L)

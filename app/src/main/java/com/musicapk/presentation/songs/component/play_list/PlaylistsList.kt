@@ -1,5 +1,6 @@
 package com.musicapk.presentation.songs.component.play_list
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -15,10 +16,19 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.PlaylistPlay
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -39,6 +49,7 @@ fun PlaylistsList(
     playlists: List<Playlist>,
     onPlaylistClick: (Playlist) -> Unit,
     onCreatePlaylistClick: () -> Unit,
+    onDeletePlaylist: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -54,22 +65,11 @@ fun PlaylistsList(
         items(playlists) { playlist ->
             PlaylistListItem(
                 playlist = playlist,
-                onClick = { onPlaylistClick(playlist) }
+                onClick = { onPlaylistClick(playlist) },
+                onDelete = { onDeletePlaylist(playlist.id) }
             )
         }
-        
-        // Show message if no playlists
-        if (playlists.isEmpty()) {
-            item {
-                Text(
-                    text = Strings.noPlaylists,
-                    color = AppColors.LightGray,
-                    fontSize = FontSizes.medium,
-                    fontFamily = FontFamily.SansSerif,
-                    modifier = Modifier.padding(Dimens.paddingMedium)
-                )
-            }
-        }
+
     }
 }
 
@@ -120,8 +120,11 @@ private fun CreatePlaylistListItem(
 @Composable
 private fun PlaylistListItem(
     playlist: Playlist,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    onDelete: () -> Unit
 ) {
+    var showDeleteDialog by remember { mutableStateOf(false) }
+    
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -166,7 +169,84 @@ private fun PlaylistListItem(
                 modifier = Modifier.padding(top = Dimens.paddingExtraSmall)
             )
         }
+        
+        // Delete button
+        IconButton(
+            onClick = { showDeleteDialog = true }
+        ) {
+            Icon(
+                imageVector = Icons.Default.Delete,
+                contentDescription = "Delete playlist",
+                tint = AppColors.White.copy(alpha = 0.6f)
+            )
+        }
     }
+    
+    // Delete confirmation dialog
+    if (showDeleteDialog) {
+        DeletePlaylistDialog(
+            playlistName = playlist.name,
+            onConfirm = {
+                showDeleteDialog = false
+                onDelete()
+            },
+            onDismiss = { showDeleteDialog = false }
+        )
+    }
+}
+
+@Composable
+private fun DeletePlaylistDialog(
+    playlistName: String,
+    onConfirm: () -> Unit,
+    onDismiss: () -> Unit
+) {
+    androidx.compose.material3.AlertDialog(
+        onDismissRequest = onDismiss,
+        title = {
+            Text(
+                text = "Delete Playlist",
+                color = AppColors.White,
+                fontWeight = FontWeight.Bold
+            )
+        },
+        text = {
+            Text(
+                text = "Are you sure you want to delete \"$playlistName\"? This action cannot be undone.",
+                color = AppColors.LightGray
+            )
+        },
+        confirmButton = {
+            Button(
+                onClick = onConfirm,
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = AppColors.Red
+                ),
+                border = BorderStroke(
+                    width = Dimens.dividerSmallThickness,
+                    color = AppColors.White
+                )
+            ) {
+                Text(
+                    text = Strings.delete,
+                    color = AppColors.White,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text(
+                    text = Strings.cancel,
+                    color = AppColors.White
+                )
+            }
+        },
+        containerColor = AppColors.GradientBlue1,
+        titleContentColor = AppColors.White,
+        textContentColor = AppColors.White,
+        shape = RoundedCornerShape(Dimens.cornerRadiusMedium)
+    )
 }
 
 @Preview(showBackground = true)
@@ -222,7 +302,8 @@ private fun PlaylistsListPreview() {
             PlaylistsList(
                 playlists = samplePlaylists,
                 onPlaylistClick = {},
-                onCreatePlaylistClick = {}
+                onCreatePlaylistClick = {},
+                onDeletePlaylist = {}
             )
         }
     }

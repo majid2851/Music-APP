@@ -66,6 +66,12 @@ fun Songs(
         onCreatePlaylist = { name, description ->
             viewModel.onEvent(SongsUiEvent.CreatePlaylist(name, description))
         },
+        onDeletePlaylist = { playlistId ->
+            viewModel.onEvent(SongsUiEvent.DeletePlaylist(playlistId))
+        },
+        onRemoveFromFavorites = { song ->
+            viewModel.onEvent(SongsUiEvent.ToggleFavorite(song.id))
+        },
         onCategorySelected = { tab ->
             viewModel.onEvent(SongsUiEvent.SelectMainTab(tab as MainTabEnum))
         }
@@ -94,6 +100,8 @@ private fun SongsContent(
     onCreatePlaylistClick: () -> Unit,
     onDismissDialog: () -> Unit,
     onCreatePlaylist: (String, String?) -> Unit,
+    onDeletePlaylist: (String) -> Unit,
+    onRemoveFromFavorites: (com.musicapk.domain.model.Song) -> Unit,
     onCategorySelected: (Any) -> Unit = {}
 ) {
     Column(
@@ -126,7 +134,8 @@ private fun SongsContent(
             MainTabEnum.FAVORITES -> {
                 FavoritesList(
                     favoriteSongs = uiState.favoriteSongs,
-                    onSongClick = onSongClick
+                    onSongClick = onSongClick,
+                    onRemoveFromFavorites = onRemoveFromFavorites
                 )
             }
             MainTabEnum.PLAYLISTS -> {
@@ -136,6 +145,9 @@ private fun SongsContent(
                     onPlaylistClick = { playlist ->
                         onPlayListClick(playlist.id)
                     },
+                    onDeletePlaylist = { playlistId ->
+                        onDeletePlaylist(playlistId)
+                    }
                 )
             }
 //            MainTabEnum.ARTISTS -> {
@@ -196,6 +208,8 @@ private fun SongsScreenPreview() {
             onCreatePlaylistClick = {},
             onDismissDialog = {},
             onCreatePlaylist = { _, _ -> },
+            onDeletePlaylist = {},
+            onRemoveFromFavorites = {},
             onCategorySelected = {}
         )
     }
@@ -231,6 +245,8 @@ private fun SongsScreenDarkPreview() {
             onCreatePlaylistClick = {},
             onDismissDialog = {},
             onCreatePlaylist = { _, _ -> },
+            onDeletePlaylist = {},
+            onRemoveFromFavorites = {},
             onCategorySelected = {}
         )
     }

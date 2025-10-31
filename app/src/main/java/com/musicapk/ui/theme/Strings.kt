@@ -2,6 +2,7 @@ package com.musicapk.ui.theme
 
 object Strings
 {
+    val delete="Delete"
     val yourFavorite="Your favorite"
     val searchSongPlayslistArtist="Search song, playslist, artist..."
     val whatDoYouFeelToday="What do you feel today?"

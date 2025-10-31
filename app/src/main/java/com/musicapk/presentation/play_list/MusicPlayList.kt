@@ -32,11 +32,13 @@ fun MusicPlayList(
 
         SongsList(
             songs = playlistSongs.value,
-            modifier = Modifier
-                .screenPaddings(),
+            modifier = Modifier.screenPaddings(),
             onSongClick = { song ->
                 viewModel.playSongFromPlaylist(song, playlistSongs.value)
                 onSongClick(song)
+            },
+            onRemoveSong = { song ->
+                viewModel.removeSongFromPlaylist(playListId, song.id)
             }
         )
     }

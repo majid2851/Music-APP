@@ -24,6 +24,7 @@ import com.musicapk.ui.theme.Dimens
 import com.musicapk.ui.theme.FontSizes
 import com.musicapk.ui.theme.MusicApkTheme
 import com.musicapk.ui.theme.Strings
+import com.musicapk.ui.theme.styles.gradientScreenBackground
 
 @Composable
 fun SplashContent(
@@ -32,23 +33,16 @@ fun SplashContent(
 ) {
     Box(
         modifier= Modifier
+            .gradientScreenBackground()
             .fillMaxSize()
     )
     {
-        Image(
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop,
-            painter = painterResource(id = R.drawable.splash),
-            contentDescription = "",
-        )
-
-
         Column(
             modifier = Modifier
                 .padding(Dimens.paddingXXXL)
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Bottom
+            verticalArrangement = Arrangement.Center
         ) {
 
             Text(
@@ -57,7 +51,7 @@ fun SplashContent(
                     .padding(
                         bottom = Dimens.paddingSmall
                     ),
-                fontSize =FontSizes.large,
+                fontSize =FontSizes.extraLarge,
                 color = AppColors.White,
                 fontFamily = FontFamily.SansSerif ,
                 fontWeight = FontWeight.Bold
@@ -71,7 +65,7 @@ fun SplashContent(
                         end = Dimens.paddingMedium,
                         bottom = Dimens.paddingMedium,
                     ),
-                fontSize =FontSizes.small,
+                fontSize =FontSizes.medium,
                 textAlign = TextAlign.Center,
                 color = AppColors.LightGray,
                 fontFamily = FontFamily.SansSerif ,

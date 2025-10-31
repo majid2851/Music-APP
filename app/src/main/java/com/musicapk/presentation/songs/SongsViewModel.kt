@@ -25,9 +25,11 @@ class SongsViewModel @Inject constructor(
     private val getAllPlaylistsUseCase: com.musicapk.domain.usecase.GetAllPlaylistsUseCase,
     private val getFavoriteSongsUseCase: com.musicapk.domain.usecase.GetFavoriteSongsUseCase,
     private val createPlaylistUseCase: com.musicapk.domain.usecase.CreatePlaylistUseCase,
+    private val deletePlaylistUseCase: com.musicapk.domain.usecase.DeletePlaylistUseCase,
     private val getAllAlbumsUseCase: com.musicapk.domain.usecase.GetAllAlbumsUseCase,
     private val getAllArtistsUseCase: com.musicapk.domain.usecase.GetAllArtistsUseCase,
-    private val getSongsByPlaylistIdUseCase: com.musicapk.domain.usecase.GetSongsByPlaylistIdUseCase
+    private val getSongsByPlaylistIdUseCase: com.musicapk.domain.usecase.GetSongsByPlaylistIdUseCase,
+    private val removeSongFromPlaylistUseCase: com.musicapk.domain.usecase.RemoveSongFromPlaylistUseCase
 ) : BaseViewModel<SongsUiState, SongsUiEvent, SongsUiEffect>(
     initialState = SongsUiState()
 ) {
@@ -35,7 +37,8 @@ class SongsViewModel @Inject constructor(
     private var searchJob: Job? = null
     
     init {
-        syncMusicFromDevice()
+        // Music sync is now handled in MainActivity.onCreate()
+        // to ensure it runs every time the app starts
         onEvent(SongsUiEvent.LoadSongs)
         loadPlaylists()
         loadFavoriteSongs()
@@ -55,6 +58,7 @@ class SongsViewModel @Inject constructor(
             is SongsUiEvent.ShowCreatePlaylistDialog -> setState { copy(showCreatePlaylistDialog = true) }
             is SongsUiEvent.HideCreatePlaylistDialog -> setState { copy(showCreatePlaylistDialog = false) }
             is SongsUiEvent.CreatePlaylist -> createPlaylist(event.name, event.description)
+            is SongsUiEvent.DeletePlaylist -> deletePlaylist(event.playlistId)
             is SongsUiEvent.SelectMainTab -> setState { copy(selectedMainTab = event.tab) }
             is SongsUiEvent.SelectCategory -> setState { copy(selectedCategory = event.category) }
         }
@@ -249,6 +253,23 @@ class SongsViewModel @Inject constructor(
         }
     }
     
+    private fun deletePlaylist(playlistId: String) {
+        viewModelScope.launch {
+            when (val result = deletePlaylistUseCase(playlistId)) {
+                is Result.Success -> {
+                    sendEffect(SongsUiEffect.ShowSnackbar("Playlist deleted successfully"))
+                    loadPlaylists() // Reload playlists
+                }
+                is Result.Error -> {
+                    sendEffect(
+                        SongsUiEffect.ShowError("Failed to delete playlist: ${result.exception.message}")
+                    )
+                }
+                is Result.Loading -> {}
+            }
+        }
+    }
+    
     private fun loadAlbums() {
         viewModelScope.launch {
             getAllAlbumsUseCase().collect { result ->
@@ -313,6 +334,22 @@ class SongsViewModel @Inject constructor(
                 sendEffect(
                     SongsUiEffect.ShowError("Failed to play song: ${e.message}")
                 )
+            }
+        }
+    }
+    
+    fun removeSongFromPlaylist(playlistId: String, songId: String) {
+        viewModelScope.launch {
+            when (val result = removeSongFromPlaylistUseCase(playlistId, songId)) {
+                is Result.Success -> {
+                    sendEffect(SongsUiEffect.ShowSnackbar("Song removed from playlist"))
+                }
+                is Result.Error -> {
+                    sendEffect(
+                        SongsUiEffect.ShowError("Failed to remove song: ${result.exception.message}")
+                    )
+                }
+                is Result.Loading -> {}
             }
         }
     }

@@ -18,6 +18,7 @@ sealed class SongsUiEvent : UiEvent {
     object ShowCreatePlaylistDialog : SongsUiEvent()
     object HideCreatePlaylistDialog : SongsUiEvent()
     data class CreatePlaylist(val name: String, val description: String?) : SongsUiEvent()
+    data class DeletePlaylist(val playlistId: String) : SongsUiEvent()
     
     // Tab events
     data class SelectMainTab(val tab: MainTabEnum) : SongsUiEvent()

@@ -19,6 +19,7 @@ import com.musicapk.ui.theme.Strings
 fun YourFavorites(
     songs: List<Song>,
     onSongClick: (Song) -> Unit,
+    onRemoveFromFavorites: (Song) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -43,7 +44,8 @@ fun YourFavorites(
         } else {
             SongsList(
                 songs = songs,
-                onSongClick = onSongClick
+                onSongClick = onSongClick,
+                onRemoveSong = onRemoveFromFavorites
             )
         }
     }
@@ -72,7 +74,8 @@ private fun YourFavoritesPreview() {
     )
     YourFavorites(
         songs = sampleSongs,
-        onSongClick = {}
+        onSongClick = {},
+        onRemoveFromFavorites = {}
     )
 }
 

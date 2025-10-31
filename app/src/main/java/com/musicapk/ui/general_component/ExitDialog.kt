@@ -27,7 +27,7 @@ fun ExitDialog(
                 .padding(Dimens.paddingMedium),
             shape = RoundedCornerShape(Dimens.cornerRadiusLarge),
             colors = CardDefaults.cardColors(
-                containerColor = AppColors.GradientBlue2
+                containerColor = AppColors.GradientBlue1
             )
         ) {
             Column(
