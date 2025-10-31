@@ -107,13 +107,15 @@ This project is licensed under the MIT License.
 
 Made with ❤️ and Kotlin
 
-![photo_2025-10-31_12-09-07](https://github.com/user-attachments/assets/c57d0a5b-2948-499d-8fff-4533dea56707)
-![photo_2025-10-31_12-09-08 (2)](https://github.com/user-attachments/assets/ff55b3de-1e28-4fac-b42e-5fa53aad89d3)
-![photo_2025-10-31_12-09-08 (3)](https://github.com/user-attachments/assets/844c45a0-6472-486e-b593-e6d65db5dc10)
-![photo_2025-10-31_12-09-08 (4)](https://github.com/user-attachments/assets/569747b5-785c-4318-ad6c-5468c07f3bb8)
-![photo_2025-10-31_12-09-08](https://github.com/user-attachments/assets/2da5b389-0ec9-48ae-aed7-cd7721b40c0e)
-![photo_2025-10-31_12-09-09 (2)](https://github.com/user-attachments/assets/a9276d9a-e023-4987-960e-4a3efd87d664)
-![photo_2025-10-31_12-09-09](https://github.com/user-attachments/assets/832f9462-5042-43f0-8fa3-b6e5349cd937)
+
+![photo_2025-10-31_12-09-07](https://github.com/user-attachments/assets/51102210-141e-47dd-aeb7-46631b9a62f4)
+![photo_2025-10-31_12-09-08 (2)](https://github.com/user-attachments/assets/c5978782-a350-477f-8e6f-a7b9db27b762)
+![photo_2025-10-31_12-09-08 (3)](https://github.com/user-attachments/assets/044f18c4-c8c8-4915-b3f6-3cbf6ed3b947)
+![photo_2025-10-31_12-09-08 (4)](https://github.com/user-attachments/assets/cad6a40f-3465-4c51-8ebf-51f0df4ee6d3)
+![photo_2025-10-31_12-09-08](https://github.com/user-attachments/assets/104d4d7e-e3db-4d90-b124-1e9537f3b8d8)
+![photo_2025-10-31_12-09-09 (2)](https://github.com/user-attachments/assets/4c5bdf2f-1cd7-49b5-aa63-bb64973618b0)
+![photo_2025-10-31_12-09-09](https://github.com/user-attachments/assets/7839021c-fb4b-4397-89a9-9fc85d1013e8)
+
 
 
 
