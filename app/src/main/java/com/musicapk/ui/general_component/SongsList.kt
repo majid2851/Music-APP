@@ -81,17 +81,14 @@ private fun SwipeableSongItem(
     onRemove: () -> Unit
 ) {
     val dismissState = rememberSwipeToDismissBoxState(
-        confirmValueChange = { dismissValue ->
-            when (dismissValue) {
-                SwipeToDismissBoxValue.StartToEnd, SwipeToDismissBoxValue.EndToStart -> {
-                    onRemove()
-                    true
-                }
-                SwipeToDismissBoxValue.Settled -> false
+        confirmValueChange = {
+            if (it != SwipeToDismissBoxValue.Settled) {
+                onRemove()
             }
+            true
         }
     )
-    
+
     SwipeToDismissBox(
         state = dismissState,
         backgroundContent = {
@@ -102,7 +99,7 @@ private fun SwipeableSongItem(
                 },
                 label = "Swipe background color"
             )
-            
+
             val scale by animateFloatAsState(
                 if (dismissState.targetValue == SwipeToDismissBoxValue.Settled) 0.75f else 1f,
                 label = "Icon scale"
@@ -202,7 +199,7 @@ fun SongItem(
                 fontSize = FontSizes.small,
                 fontWeight = FontWeight.Medium,
                 fontFamily = FontFamily.SansSerif,
-                color = AppColors.DarkGray,
+                color = AppColors.White.copy(alpha = 0.7f),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
